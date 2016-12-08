@@ -1,0 +1,12 @@
+module test_foo_mod
+    use pfunit_mod
+    use foo_mod
+
+contains
+    
+    @test
+    subroutine test_bar()
+        @assertTrue(.true.)
+    end subroutine
+
+end module
