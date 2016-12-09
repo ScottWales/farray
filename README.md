@@ -11,3 +11,10 @@ Build Instructions:
     cmake ..
     make
     ctest
+
+A Vagrantfile is provided with all required dependencies, to use:
+
+    vagrant up
+    vagrant ssh
+    make
+    ctest
