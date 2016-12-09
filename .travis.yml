@@ -14,7 +14,7 @@ env:
 install:
     - sudo apt-add-repository --yes ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
-    - sudo apt-get install ${CC} ${FC} libgomp1 openmpi-bin libopenmpi-dev cmake libnetcdf-dev libnetcdff-dev
+    - sudo apt-get install ${CC} ${FC} libgomp1 openmpi-bin libopenmpi-dev cmake libnetcdf-dev libnetcdff
 
     - git clone --branch ${PFUNIT_VERSION} --depth 5 git://git.code.sf.net/p/pfunit/code pfunit-src
     - make  -C pfunit-src F90=${FC} F90_VENDOR=GNU MPI=YES INSTALL_DIR=${PFUNIT}
