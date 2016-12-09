@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y python-minimal gfortran-5 openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev cmake
+    apt-get install -y python-minimal gfortran-5 openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff cmake
   SHELL
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     cat > .profile << EOF
