@@ -1,0 +1,45 @@
+module test_farray_mod
+    use pfunit_mod
+    use farray_mod
+contains
+
+    @test(npes=[1,2,4])
+    subroutine test_open(this)
+        class(MpiTestMethod), intent(inout) :: this
+        type(dataset_t) :: d
+        d = open_dataset('example_good.nc', this%getMpiCommunicator())
+        call d%close()
+    end subroutine
+
+    @test(npes=[1,2,4])
+    subroutine test_read(this)
+        class(MpiTestMethod), intent(inout) :: this
+        type(dataset_t) :: d
+        type(variable_t) :: v
+        real :: P(3,4,2)
+        P = -1
+
+        d = open_dataset('example_good.nc', this%getMpiCommunicator())
+        v = d%variable('P')
+        call v%read(P)
+        @assertEqual(950, P(1,1,1))
+        call d%close()
+    end subroutine
+
+    @test(npes=[1,2,4])
+    subroutine test_read_alloc(this)
+        class(MpiTestMethod), intent(inout) :: this
+        type(dataset_t) :: d
+        type(variable_t) :: v
+        real, allocatable :: P(:,:,:)
+        integer :: s(3)
+
+        d = open_dataset('example_good.nc', this%getMpiCommunicator())
+        v = d%variable('P')
+        s = v%shape()
+        allocate(P(s(1),s(2),s(3)))
+        call v%read(P)
+        @assertEqual(950, P(1,1,1))
+        call d%close()
+    end subroutine
+end module
