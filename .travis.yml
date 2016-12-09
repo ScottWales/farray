@@ -8,15 +8,14 @@ env:
         - OMPI_CC=${CC}
         - OMPI_FC=${FC}
         - PFUNIT=${PWD}/pfunit
+        - PFUNIT_VERSION=3.2.7
 
 install:
     - sudo apt-add-repository --yes ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
-    - sudo apt-get install gcc-4.8 gfortran-4.8 libgomp1 openmpi-bin libopenmpi-dev cmake
+    - sudo apt-get install ${CC} ${FC} libgomp1 openmpi-bin libopenmpi-dev cmake
 
-    - wget http://downloads.sourceforge.net/project/pfunit/Source/pFUnit.tar.gz
-    - mkdir -p pfunit-src
-    - tar   -C pfunit-src --strip-components=1 -xf pFUnit.tar.gz
+    - git clone --branch ${PFUNIT_VERSION} --depth 5 git://git.code.sf.net/p/pfunit/code pfunit-src
     - make  -C pfunit-src F90=${FC} F90_VENDOR=GNU MPI=YES INSTALL_DIR=${PFUNIT}
     - make  -C pfunit-src F90=${FC} F90_VENDOR=GNU MPI=YES INSTALL_DIR=${PFUNIT} install
 
